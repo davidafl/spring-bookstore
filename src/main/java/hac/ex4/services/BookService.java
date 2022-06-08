@@ -1,5 +1,6 @@
 package hac.ex4.services;
 
+import hac.ex4.beans.ShoppingCart;
 import hac.ex4.repo.Book;
 import hac.ex4.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,18 @@ public class BookService {
     public void updateBook(Book book) {
         repository.save(book);
     }
-    public Optional<Book> getBook(long id) { return repository.findById(id); }
+    public Book getBook(long id) {
+        Book b = repository.findById(id).orElseThrow(()->new IllegalArgumentException("invalid id: " + id));
+        return b;
+    }
 
     public List<Book> getBooks() { return repository.findAll(); }
+
+    @Transactional
+    public void updateStock(ShoppingCart cart){
+        for(Book b : cart.getBooks()){
+            Book book = repository.findById(b.getId()).orElseThrow(()->new IllegalArgumentException("invalid id: " + b.getId()));
+            repository.decrementStock(book.getId(), b.getQuantity());
+        }
+    }
 }

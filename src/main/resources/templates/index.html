@@ -11,6 +11,22 @@
 </head>
 <body>
 <div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Number of items in cart:
+                <span th:text="${cart.getTotalQuantity()}"></span>
+            </p>
+            <a href="/cart" class="btn btn-primary">View Cart</a>
+        </div>
+    </div>
+    <div class="row">
+        <!-- display ${message} if there is one -->
+        <div th:if="${message != null}" class="col">
+            <div class="alert alert-info">
+                <span th:text="${message}"/>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
 
@@ -31,8 +47,10 @@
                         <td th:text="${book.quantity}"></td>
                         <td>
                             <!-- not recommended: using GET controller <a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a> -->
-                            <form action="#" th:action="@{/addtocart}" th:object="${book}" method="post"><input type="hidden" name="id" th:value="${book.id}">
-                                <input class="btn btn-primary" type="submit" value="Add To Cart" /></form>
+                            <form action="#" th:action="@{/addtocart}" method="post">
+                                <input type="hidden" name="id" th:value="${book.id}">
+                                <input class="btn btn-primary" type="submit" value="Add To Cart" />
+                            </form>
                         </td>
                     </tr>
                     </tbody>

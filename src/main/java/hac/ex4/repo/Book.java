@@ -7,10 +7,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.io.Serializable;
 
 
 @Entity
-public class Book {
+public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,4 +59,8 @@ public class Book {
     public void setDiscount(double discount) { this.discount = discount; }
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public String toString() {
+        return "Book: " + this.getBookName() + " | Quantity: " + this.getQuantity() + " | Price: " + this.getPrice() + " | Discount: " + this.getDiscount();
+    }
 }

@@ -46,8 +46,7 @@ public class AdminController {
 
     @PostMapping("/admin/edit")
     public String editBook(@RequestParam("id") long id, Model model) {
-
-        Book book = bookService.getBook(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        Book book = bookService.getBook(id);
 
         // the name "user"  is bound to the VIEW
         model.addAttribute("book", book);
@@ -69,11 +68,7 @@ public class AdminController {
     @GetMapping("/admin/delete/{id}")
     public String deleteBook(@PathVariable("id") long id, Model model) {
 
-        Book book = bookService
-                .getBook(id)
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Invalid book Id:" + id)
-                );
+        Book book = bookService.getBook(id);
         bookService.deleteBook(book);
         model.addAttribute("users", bookService.getBooks());
         return "admin";
