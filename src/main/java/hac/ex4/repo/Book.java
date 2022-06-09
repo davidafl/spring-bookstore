@@ -3,10 +3,7 @@ package hac.ex4.repo;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 
@@ -23,9 +20,8 @@ public class Book implements Serializable {
     @NotEmpty(message = "Name is mandatory")
     private String bookName;
 
-    @Positive
-    @Min(value = 0, message = "Quantity must be positive")
-    @Column(nullable = false)
+    @PositiveOrZero(message = "Price must be positive or zero")
+    @NotNull(message = "Quantity is mandatory")
     private int quantity;
 
     @Positive
@@ -52,7 +48,12 @@ public class Book implements Serializable {
     public String getBookName() { return bookName; }
     public void setBookName(String bookName) { this.bookName = bookName; }
     public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("The book " + bookName + " is out of stock!");
+        }
+        this.quantity = quantity;
+    }
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
     public double getDiscount() { return discount; }

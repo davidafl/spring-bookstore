@@ -65,12 +65,18 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/admin/delete/{id}")
-    public String deleteBook(@PathVariable("id") long id, Model model) {
+    @PostMapping("/admin/delete")
+    public String deleteBook(@RequestParam("id") long id, Model model) {
 
         Book book = bookService.getBook(id);
         bookService.deleteBook(book);
-        model.addAttribute("users", bookService.getBooks());
-        return "admin";
+//        model.addAttribute("users", bookService.getBooks());
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/payments")
+    public String payments(Model model) {
+        model.addAttribute("payments", bookService.getPayments());
+        return "payments";
     }
 }

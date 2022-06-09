@@ -12,10 +12,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
-            <p>Look at the html code and see how the object "user" is bound between spring and thymeleaf.</p>
-            <!--  th:object: declares the model object to use for collecting the form data
-            th:field: the fields in the user object.
-            -->
+            <h3>Add a new book to the store</h3>
             <form action="#" th:action="@{/admin/addbook}" th:object="${book}" method="post">
                 <div class="row">
                     <div class="form-group col-md-6">

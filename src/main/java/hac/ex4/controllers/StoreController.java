@@ -2,6 +2,7 @@ package hac.ex4.controllers;
 
 import hac.ex4.beans.ShoppingCart;
 import hac.ex4.repo.Book;
+import hac.ex4.repo.PaymentRepository;
 import hac.ex4.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,8 +77,14 @@ public class StoreController {
 
     @PostMapping("/cart/pay")
     public String pay(Model model){
-        cart.clear();
-        bookService.updateStock(cart);
+        try {
+            bookService.updateStock(cart);
+            cart.clear();
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            model.addAttribute("cart", cart);
+            return "cart";
+        }
         return "confirmation";
     }
 }

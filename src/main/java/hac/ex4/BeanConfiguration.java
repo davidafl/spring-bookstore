@@ -15,4 +15,5 @@ public class BeanConfiguration {
     public ShoppingCart myShoppingCart () {
         return new ShoppingCart();
     }
+
 }
