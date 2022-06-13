@@ -25,9 +25,20 @@ public class StoreController {
 
     @GetMapping("/")
     public String main(Model model) {
-        model.addAttribute("books", bookService.getBooks());
+        model.addAttribute("books", bookService.get5DiscountBooks());
         model.addAttribute("cart", cart);
         return "index";
+    }
+
+    @GetMapping("allbooks")
+    public String allBooks(Model model) {
+        try {
+            model.addAttribute("books", bookService.getBooks());
+            model.addAttribute("cart", cart);
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+        }
+        return "all-books";
     }
 
     @PostMapping("/addtocart")
@@ -85,6 +96,24 @@ public class StoreController {
             model.addAttribute("cart", cart);
             return "cart";
         }
+        model.addAttribute("cart", cart);
         return "confirmation";
+    }
+
+    @GetMapping("/cart/pay")
+    public String payGet(Model model) {
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/search")
+    public String searchForm(Model model, @RequestParam String searchParam){
+        model.addAttribute("books", bookService.search(searchParam));
+        model.addAttribute("cart", cart);
+        return "index";
+    }
+
+    @GetMapping("/search")
+    public String searchGet(Model model){
+        return "redirect:/";
     }
 }

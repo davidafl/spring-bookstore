@@ -32,18 +32,31 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public List<Book> get5DiscountBooks() {
+        //return bookRepository.findFirstFiveBooksWithBiggestDiscount();
+        return bookRepository.findFirst5ByOrderByDiscountDesc();
+
+    }
+
     public void deleteBook(long id) {
         bookRepository.deleteById(id);
     }
+
     public void deleteBook(Book b) {
         bookRepository.delete(b);
     }
+
     public void updateBook(Book book) {
         bookRepository.save(book);
     }
+
     public Book getBook(long id) {
-        Book b = bookRepository.findById(id).orElseThrow(()->new IllegalArgumentException("invalid id: " + id));
+        Book b = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("invalid id: " + id));
         return b;
+    }
+
+    public List<Book> search(String query) {
+        return bookRepository.findByBookNameContaining(query);
     }
 
     public List<Book> getBooks() { return bookRepository.findAll(); }

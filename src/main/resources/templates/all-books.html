@@ -27,23 +27,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/allbooks">All Books</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin">Admin Area</a>
+                        <a class="nav-link active" aria-current="page" href="/cart">My Cart</a>
                     </li>
                 </ul>
-
-
-                <a type="button" class="btn btn-primary position-relative mx-3" href="/cart">
+                <button type="button" class="btn btn-primary position-relative mx-3">
                     My Cart
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                           th:text="${cart.getTotalQuantity()}"></span>
                     <span class="visually-hidden">shopping cart</span>
-                </a>
+                </button>
 
                 <form action="/search" method="post" class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="searchParam" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search books</button>
                 </form>
             </div>
@@ -72,39 +67,44 @@
     <!-- Background image -->
 </header>
 <div class="container">
+    <!-- Error message -->
     <div class="row">
-        <h3>thanks for your order!</h3>
+        <div th:if="${message != null}" class="col">
+            <div class="alert alert-info">
+                <span th:text="${message}"/>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <h4>Your order is:</h4>
-        <table class="table table-striped table-responsive-md">
-            <thead>
-            <tr>
-                <th>Book Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
+    <!-- Error message -->
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="book : ${cart.books}">
-                <td th:text="${book.getBookName()}"></td>
-                <td th:text="${cart.getBookQuantity(book.getId())}"></td>
-                <td th:text="${book.getPriceAfterDiscount()}"></td>
-                </td>
-                <td>
-                    <form action="#" th:action="@{/cart/delete}" th:object="${book}" method="post">
-                        <input type="hidden" name="id" th:value="${book.id}">
-                        <input class="btn btn-primary" typ e="submit" value="Delete"/>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Book list -->
+    <div th:switch="${books.size()}" class="col">
+        <h2 th:case="0">No books yet!</h2>
+        <div th:case="*">
+            <h2 class="my-5">All Books</h2>
+            <div class="row">
+                <div th:each="book : ${books}" class="col-md-4">
+                    <div class="card mb-4 div.embed-responsive">
+                        <img th:src="${book.getImage()}" class="card-img-top" alt="Card image cap" width="100px" height="300px">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${book.bookName}"></h4>
+                            <h5 class="mb-1">
+                                Price:
+                                <span class="card-text" th:text="${book.getPrice()}"></span>
+                                $
+                            </h5>
+
+                            <form action="#" th:action="@{/addtocart}" method="post">
+                                <input type="hidden" name="id" th:value="${book.id}">
+                                <input class="btn btn-primary" type="submit" value="Add To Cart"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        Total amount paid: <span th:text="${cart.getTotalPriceAfterDiscount()}"></span>
-    </div>
+    <!-- Book list -->
 </div>
 </body>
 </html>

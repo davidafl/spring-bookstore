@@ -20,19 +20,17 @@ public class Book implements Serializable {
     @NotEmpty(message = "Name is mandatory")
     private String bookName;
 
-    @PositiveOrZero(message = "Price must be positive or zero")
-    @NotNull(message = "Quantity is mandatory")
-    private int quantity;
+    //@NotEmpty(message = "Quantity is mandatory")
+    @Positive(message = "Quantity must be positive or zero")
+    private int quantity = 1;
 
-    @Positive
-    @Min(value = 0, message = "Price must be greater than 0")
-    @Column(nullable = false)
-    private double price;
+    //@Column(nullable = false)
+    @Positive(message = "Price must be positive")
+    private double price = 1;
 
-    @Positive
-    @Min(value = 0, message = "Quantity must be greater than 0")
-    @Column(nullable = false)
-    private double discount;
+    //@Column(nullable = false)
+    @PositiveOrZero(message = "Discount must be positive or zero")
+    private double discount = 0;
 
     public Book() {}
 
@@ -60,6 +58,10 @@ public class Book implements Serializable {
     public void setDiscount(double discount) { this.discount = discount; }
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public double getPriceAfterDiscount() {
+        return price - (price * discount / 100);
+    }
 
     public String toString() {
         return "Book: " + this.getBookName() + " | Quantity: " + this.getQuantity() + " | Price: " + this.getPrice() + " | Discount: " + this.getDiscount();

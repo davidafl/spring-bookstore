@@ -5,20 +5,60 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
 </head>
+
 <body>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/cart">My Cart</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-primary position-relative mx-3">
+                    My Cart
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          th:text="${cart.getTotalQuantity()}"></span>
+                    <span class="visually-hidden">shopping cart</span>
+                </button>
+
+                <form action="/search" method="post" class="d-flex" role="search">
+                    <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+</header>
+
 <div class="container">
-
+    <!-- List of books in cart -->
     <div class="row">
-
-        <div th:switch="${cart.getSize()}" class="col">
-            <h2 th:case="0">your cart is empty!</h2>
+        <div th:switch="${cart.getSize()}" class="col text-center">
+            <div th:case="0">
+                <h1>your cart is empty!</h1>
+                <a href="/" class="btn btn-primary">Go shopping</a>
+            </div>
             <div th:case="*">
-                <!-- show message if its not null-->
+                <!-- table of my books-->
                 <div th:if="${message != null}">
-                    <div class="alert alert-success" role="alert" th:text="${message}"}>
+                    <div class="alert alert-success" role="alert" th:text="${message}" }>
                     </div>
                 </div>
                 <h2 class="my-5">My Cart</h2>
@@ -38,32 +78,33 @@
                         <td th:text="${cart.getBookQuantity(book.getId())}"></td>
                         <td th:text="${book.getPrice()}"></td>
                         <td th:text="${book.getDiscount()}"></td>
-                        <td><img th:src="${book.getImage()}" th:alt="${book.getBookName()}" width="100" height="100"></td>
+                        <td><img th:src="${book.getImage()}" th:alt="${book.getBookName()}" width="100" height="100">
+                        </td>
                         <td>
-                            <!-- not recommended: using GET controller <a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a> -->
                             <form action="#" th:action="@{/cart/delete}" th:object="${book}" method="post">
                                 <input type="hidden" name="id" th:value="${book.id}">
-                                <input class="btn btn-primary" type="submit" value="Delete" />
+                                <input class="btn btn-primary" type="submit" value="Delete"/>
                             </form>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <!-- table of my books-->
+
+                <div class="row">
+                    <form th:action="@{/cart/clear}" method="post">
+                        <input class="btn btn-primary" type="submit" value="Empty Cart"/>
+                    </form>
+                </div>
+                <div class="row">
+                    <h2> Total After Discount: <span class="my-5" th:text="${cart.getTotalPriceAfterDiscount()}"/></h2>
+                    <a href="/cart/checkout" class="btn btn-primary">Checkout</a>
+                </div>
+
             </div>
-            <div>
-                <h2> Total: <span class="my-5" th:text="${cart.getTotalPriceAfterDiscount()}"/></h2>
-<!--                <form action="#" th:action="@{/cart/checkout}" method="post">-->
-<!--                    <input type="hidden" name="total" th:value="${cart.getTotalPriceAfterDiscount()}">-->
-<!--                    <input class="btn btn-primary" type="submit" value="Checkout" />-->
-<!--                </form>-->
-                <a href = "/cart/checkout" class="btn btn-primary">Checkout</a>
-            </div>
-            <p class="my-5"><a href="/" class="btn btn-primary">Continue Shopping</a></p>
-            <form action="#" th:action="@{/cart/clear}" method="post">
-                <input class="btn btn-primary" type="submit" value="Empty Cart" />
-            </form>
         </div>
     </div>
+    <!-- List of books in cart -->
 </div>
 </body>
 </html>

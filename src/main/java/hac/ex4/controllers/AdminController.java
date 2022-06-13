@@ -1,5 +1,6 @@
 package hac.ex4.controllers;
 
+import hac.ex4.beans.ShoppingCart;
 import hac.ex4.repo.Book;
 import hac.ex4.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 @Controller
@@ -19,48 +21,63 @@ public class AdminController {
     @Autowired
     private BookService bookService;
 
+    @Resource(name = "myShoppingCart")
+    private ShoppingCart cart;
 
     @GetMapping("/admin")
     public String main(Model model) {
         model.addAttribute("books", bookService.getBooks());
+        model.addAttribute("cart", cart);
         return "admin";
     }
 
     @PostMapping("/admin/addbook")
-    public String addBook(Book book, Model model) {
-        try {
-            bookService.saveBook(book);
+    public String addBook(@Valid Book book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             model.addAttribute("books", bookService.getBooks());
+            model.addAttribute("cart", cart);
+            //model.addAttribute("message", "Sorry we could not perform your request!");
+            return "add-book";
+        }
+        try {
+            model.addAttribute("books", bookService.getBooks());
+            model.addAttribute("cart", cart);
+            bookService.saveBook(book);
 
         } catch (Exception e) {
-            model.addAttribute("message", "Sorry we could not perform your request!");
+            model.addAttribute("message", e.getMessage());
+            model.addAttribute("cart", cart);
+            return "add-book";
         }
-        model.addAttribute("users", bookService.getBooks());
+        //model.addAttribute("books", bookService.getBooks());
         return "redirect:/admin";
     }
 
     @GetMapping("/admin/addbook")
     public String addBookForm(Book book, Model model) {
+        model.addAttribute("cart", cart);
         return "add-book";
     }
 
     @PostMapping("/admin/edit")
-    public String editBook(@RequestParam("id") long id, Model model) {
+    public String editBook(@RequestParam("bookid") long id, Model model) {
         Book book = bookService.getBook(id);
 
-        // the name "user"  is bound to the VIEW
         model.addAttribute("book", book);
+        model.addAttribute("cart", cart);
         return "update-book";
     }
 
-    @PostMapping("/admin/update/{id}")
-    public String updateBook(@PathVariable("id") long id, @Valid Book book, BindingResult result, Model model) {
+    @PostMapping("/admin/update")
+    public String updateBook(/*@RequestParam("bookid") long id,*/ @Valid Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            book.setId(id);
+            //book.setId(id);
+            model.addAttribute("book", book);
+            model.addAttribute("cart", cart);
             return "update-book";
         }
-
         bookService.saveBook(book);
+        model.addAttribute("cart", cart);
         model.addAttribute("books", bookService.getBooks());
         return "admin";
     }
@@ -77,6 +94,7 @@ public class AdminController {
     @GetMapping("/admin/payments")
     public String payments(Model model) {
         model.addAttribute("payments", bookService.getPayments());
+        model.addAttribute("cart", cart);
         return "payments";
     }
 }
