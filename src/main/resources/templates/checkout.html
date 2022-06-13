@@ -40,10 +40,9 @@
                     <span class="visually-hidden">shopping cart</span>
                 </a>
 
-                <form action="/search" method="post" class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="searchParam" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search books</button>
+                <form th:action="@{/search}"  method="post" class="d-flex" role="search">
+                    <input class="form-control me-2" type="text" name="searchParam" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>

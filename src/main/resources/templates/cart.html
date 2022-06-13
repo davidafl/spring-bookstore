@@ -37,8 +37,8 @@
                     <span class="visually-hidden">shopping cart</span>
                 </button>
 
-                <form action="/search" method="post" class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
+                <form th:action="@{/search}"  method="post" class="d-flex" role="search">
+                    <input class="form-control me-2" type="text" name="searchParam" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -100,7 +100,9 @@
                     <h2> Total After Discount: <span class="my-5" th:text="${cart.getTotalPriceAfterDiscount()}"/></h2>
                     <a href="/cart/checkout" class="btn btn-primary">Checkout</a>
                 </div>
-
+                <form th:action="@{/cart/checkout}" method="get">
+                    <input class="btn btn-primary" type="submit" value="GetCheckout"/>
+                </form>
             </div>
         </div>
     </div>

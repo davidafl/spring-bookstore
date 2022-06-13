@@ -29,11 +29,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/allbooks">All Books</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin">Admin Area</a>
-                    </li>
                 </ul>
-
 
                 <a type="button" class="btn btn-primary position-relative mx-3" href="/cart">
                     My Cart
@@ -42,9 +38,9 @@
                     <span class="visually-hidden">shopping cart</span>
                 </a>
 
-                <form action="/search" method="post" class="d-flex" role="search">
+                <form th:action="@{/search}"  method="post" class="d-flex" role="search">
                     <input class="form-control me-2" type="text" name="searchParam" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search books</button>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>

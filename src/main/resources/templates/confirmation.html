@@ -42,9 +42,9 @@
                     <span class="visually-hidden">shopping cart</span>
                 </a>
 
-                <form action="/search" method="post" class="d-flex" role="search">
+                <form th:action="@{/search}"  method="post" class="d-flex" role="search">
                     <input class="form-control me-2" type="text" name="searchParam" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search books</button>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -71,39 +71,15 @@
     </div>
     <!-- Background image -->
 </header>
-<div class="container">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row text-center mt-3">
         <h3>thanks for your order!</h3>
     </div>
     <div class="row">
-        <h4>Your order is:</h4>
-        <table class="table table-striped table-responsive-md">
-            <thead>
-            <tr>
-                <th>Book Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="book : ${cart.books}">
-                <td th:text="${book.getBookName()}"></td>
-                <td th:text="${cart.getBookQuantity(book.getId())}"></td>
-                <td th:text="${book.getPriceAfterDiscount()}"></td>
-                </td>
-                <td>
-                    <form action="#" th:action="@{/cart/delete}" th:object="${book}" method="post">
-                        <input type="hidden" name="id" th:value="${book.id}">
-                        <input class="btn btn-primary" typ e="submit" value="Delete"/>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        Total amount paid: <span th:text="${cart.getTotalPriceAfterDiscount()}"></span>
+        <!-- back to store button -->
+        <button class="btn btn-primary mx-auto" type="button" onclick="window.location.href='/'">
+            Back to store
+        </button>
     </div>
 </div>
 </body>

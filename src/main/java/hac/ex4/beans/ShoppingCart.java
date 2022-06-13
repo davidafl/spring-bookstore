@@ -98,19 +98,18 @@ public class ShoppingCart implements Serializable {
     public double getTotalDiscount() {
         double total = 0;
         for (Book book : getBooks()) {
-            total += book.getDiscount() * getBookQuantities().get(book.getId());
+            total += (book.getPrice() * book.getDiscount()/100) * getBookQuantities().get(book.getId());
         }
         return total;
+    }
+
+    public double getTotalPriceAfterDiscount() {
+        return getTotalPrice() - getTotalDiscount();
     }
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.setBooks(shoppingCart.getBooks());
         this.setBookQuantities(shoppingCart.getBookQuantities());
-    }
-
-
-    public double getTotalPriceAfterDiscount() {
-        return getTotalPrice() - getTotalDiscount();
     }
 
     public void clear() {
