@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class AdminController {
@@ -25,9 +26,12 @@ public class AdminController {
     private ShoppingCart cart;
 
     @GetMapping("/admin")
-    public String main(Model model) {
+    public String main(Model model, Principal principal) {
         model.addAttribute("books", bookService.getBooks());
         model.addAttribute("cart", cart);
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        }
         return "admin";
     }
 

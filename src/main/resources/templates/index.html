@@ -31,6 +31,17 @@
                     </li>
                 </ul>
 
+                <div th:if="${username != null}" class="position-relative mx-3">
+                    <h5>Welcome,<span th:text="${username}"></span></h5>
+                </div>
+                <div th:if="${username != null}">
+                    <a class="btn btn-primary position-relative mx-3" href="/logout">Logout</a>
+                </div>
+
+                <div th:if="${username == null}">
+                    <a class="btn btn-primary position-relative mx-3" href="/login">Login</a>
+                </div>
+
                 <a type="button" class="btn btn-primary position-relative mx-3" href="/cart">
                     My Cart
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"

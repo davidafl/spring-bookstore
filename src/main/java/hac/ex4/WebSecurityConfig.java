@@ -35,14 +35,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .defaultSuccessUrl("/admin", true)
+                //.defaultSuccessUrl("/admin", true)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/cart/pay").hasRole("USER")
+                .antMatchers("/cart/pay").hasRole("USER")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403.html");

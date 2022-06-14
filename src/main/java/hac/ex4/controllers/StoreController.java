@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 
 @Controller
 public class StoreController {
@@ -24,7 +25,10 @@ public class StoreController {
     private ShoppingCart cart;
 
     @GetMapping("/")
-    public String main(Model model) {
+    public String main(Model model, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        }
         model.addAttribute("books", bookService.get5DiscountBooks());
         model.addAttribute("cart", cart);
         return "index";

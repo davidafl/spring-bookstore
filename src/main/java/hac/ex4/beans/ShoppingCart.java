@@ -31,10 +31,18 @@ public class ShoppingCart implements Serializable {
         }
     }
 
+    /**
+     * getter for the books in the shopping cart
+     * @return
+     */
     public ArrayList<Book> getBooks() {
         return books;
     }
 
+    /**
+     * setter for the books in the shopping cart
+     * @param books
+     */
     public void setBooks(ArrayList<Book> books) {
         this.books = books;
     }
@@ -44,6 +52,10 @@ public class ShoppingCart implements Serializable {
         return bookQuantities;
     }
 
+    /**
+     * setter for the book quantities in the shopping cart
+     * @param bookQuantities
+     */
     public void setBookQuantities(HashMap<Long, Integer> bookQuantities) {
         this.bookQuantities = bookQuantities;
     }
@@ -57,6 +69,11 @@ public class ShoppingCart implements Serializable {
         getBookQuantities().remove(book.getId());
     }
 
+
+    /**
+     * remove a book from the shopping cart
+     * @param id - the id of the book to remove
+     */
     public void removeBook(long id) {
         for (int i = 0; i < getBooks().size(); i++) {
             if (getBooks().get(i).getId() == id) {
@@ -75,10 +92,19 @@ public class ShoppingCart implements Serializable {
         getBookQuantities().put(id, quantity);
     }
 
+    /**
+     * getter for the quantity of a book in the shopping cart
+     * @param id - the id of the book
+     * @return
+     */
     public int getBookQuantity(long id) {
         return getBookQuantities().get(id);
     }
 
+    /**
+     * getter fot the total quantity of a book in the shopping cart
+     * @return
+     */
     public int getTotalQuantity() {
         int total = 0;
         for (int quantity : getBookQuantities().values()) {
@@ -87,6 +113,10 @@ public class ShoppingCart implements Serializable {
         return total;
     }
 
+    /**
+     * getter for the total price of all books in the shopping cart
+     * @return
+     */
     public double getTotalPrice() {
         double total = 0;
         for (Book book : getBooks()) {
@@ -95,6 +125,10 @@ public class ShoppingCart implements Serializable {
         return total;
     }
 
+    /**
+     * getter for the total discount of all books in the shopping cart
+     * @return
+     */
     public double getTotalDiscount() {
         double total = 0;
         for (Book book : getBooks()) {
