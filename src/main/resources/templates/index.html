@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BookStore - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -13,7 +13,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
+<!-- we do not use fragments here, because this is the only page with image -->
 <header>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-light">
@@ -103,7 +103,7 @@
                             <h5 class="mb-1">
                                 Price:
                                 <span class="card-text" th:text="${book.getPriceAfterDiscount()}"></span>
-                                $
+                                $ <strike class="card-text" th:text="${book.getPrice()}"></strike>
                             </h5>
 
                             <form action="#" th:action="@{/addtocart}" method="post">

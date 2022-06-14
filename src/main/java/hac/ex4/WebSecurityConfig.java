@@ -42,7 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .and()
+                .authorizeRequests()
                 .antMatchers("/cart/pay").hasRole("USER")
+//                .antMatchers("/cart/**").access("not( hasRole('ADMIN') ) and isAuthenticated()")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403.html");

@@ -9,13 +9,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The shopping cart.
+ */
 @Component
 public class ShoppingCart implements Serializable {
     private ArrayList<Book> books = new ArrayList<>();
     private HashMap<Long,Integer> bookQuantities = new HashMap<>();
 
-
-    // CTOR
+    /**
+     * constructor for the shopping cart.
+     */
     public ShoppingCart() {}
 
     /**
@@ -137,6 +141,10 @@ public class ShoppingCart implements Serializable {
         return total;
     }
 
+    /**
+     * getter for the total price of all books in the shopping cart after discount
+     * @return
+     */
     public double getTotalPriceAfterDiscount() {
         return getTotalPrice() - getTotalDiscount();
     }
@@ -146,6 +154,9 @@ public class ShoppingCart implements Serializable {
         this.setBookQuantities(shoppingCart.getBookQuantities());
     }
 
+    /**
+     * clears the shopping cart
+     */
     public void clear() {
         getBooks().clear();
         getBookQuantities().clear();
@@ -155,6 +166,10 @@ public class ShoppingCart implements Serializable {
         return getBooks().isEmpty();
     }
 
+    /**
+     * returns the number of books in the shopping cart
+     * @return
+     */
     public int getSize() {
         return getBooks().size();
     }
@@ -164,6 +179,10 @@ public class ShoppingCart implements Serializable {
     }
 
 
+    /**
+     * toString method for the shopping cart
+     * @return
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Book book : getBooks()) {

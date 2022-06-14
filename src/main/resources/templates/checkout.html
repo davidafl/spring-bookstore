@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Checkout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -12,48 +12,14 @@
           crossorigin="anonymous"></script>
 </head>
 <body>
-<header>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/allbooks">All Books</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin">Admin Area</a>
-                    </li>
-                </ul>
 
+<header th:insert="fragments/user-navbar.html :: user-navbar "> </header>
 
-                <a type="button" class="btn btn-primary position-relative mx-3" href="/cart">
-                    My Cart
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                          th:text="${cart.getTotalQuantity()}"></span>
-                    <span class="visually-hidden">shopping cart</span>
-                </a>
+<div class="container
+">
 
-                <form th:action="@{/search}"  method="post" class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="searchParam" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar -->
-</header>
-
-<div class="container">
-
-    <div class="row">
-        <h2 class="my-5">My Cart</h2>
+    <div class="row text-center">
+        <h1 class="my-5">My Cart</h1>
         <table class="table table-striped table-responsive-md">
             <thead>
             <tr>
@@ -76,15 +42,15 @@
         </table>
 
     </div>
-    <div class="row">
+    <div class="row text-center">
         <h2> Total: <span class="my-5" th:text="${cart.getTotalPriceAfterDiscount()}"/></h2>
     </div>
-    <div class="row">
+    <div class="row text-center">
         <form action="#" th:action="@{/cart/pay}" method="post">
             <input class="btn btn-primary" type="submit" value="Pay"/>
         </form>
     </div>
-    <div class="row">
+    <div class="row text-center">
         <p class="mt-1"><a href="/cart" class="btn btn-primary">Back To Cart</a></p>
     </div>
 </div>
