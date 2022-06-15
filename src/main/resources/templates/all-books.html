@@ -37,11 +37,11 @@
                     <div class="card mb-4 div.embed-responsive">
                         <img th:src="${book.getImage()}" class="card-img-top" alt="Card image cap" width="100px" height="300px">
                         <div class="card-body">
-                            <h4 class="card-title" th:text="${book.bookName}"></h4>
+                            <h4 class="card-title" th:text="${book.getBookName()}"></h4>
                             <h5 class="mb-1">
                                 Price:
-                                <span class="card-text" th:text="${book.getPrice()}"></span>
-                                $
+                                <span class="card-text" th:text="${book.getPriceAfterDiscount()}"></span>
+                                $ <strike class="card-text" th:text="${book.getPrice()}"></strike>
                             </h5>
 
                             <form action="#" th:action="@{/addtocart}" method="post">
@@ -55,6 +55,7 @@
         </div>
     </div>
     <!-- Book list -->
+
 </div>
 </body>
 </html>

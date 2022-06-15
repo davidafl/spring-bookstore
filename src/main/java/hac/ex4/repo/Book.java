@@ -19,7 +19,7 @@ public class Book implements Serializable {
     private String bookName;
 
     //@NotEmpty(message = "Quantity is mandatory")
-    @Positive(message = "Quantity must be positive or zero")
+    @PositiveOrZero(message = "Quantity must be positive or zero")
     private int quantity = 1;
 
     //@Column(nullable = false)
@@ -84,9 +84,9 @@ public class Book implements Serializable {
      * @param quantity - the quantity of the book
      */
     public void setQuantity(int quantity) {
-//        if (quantity < 0) {
-//            throw new IllegalArgumentException("The book " + bookName + " is out of stock!");
-//        }
+        if (quantity < 0) {
+            throw new IllegalArgumentException("The book " + bookName + " is out of stock!");
+        }
         this.quantity = quantity;
     }
 
