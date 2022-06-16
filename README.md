@@ -10,5 +10,7 @@ davidaf@edu.hac.ac.il</p>
 207190216
 anaelza@edu.hac.ac.il</p>
 
-<p>the javadoc is in a folder named javadoc.</br>
-the database is in the main folder (ex4-spring-neviim..) and is named ex4.sql</p>
+<p>- the javadoc is in a folder named javadoc.</br>
+- the database is in the main folder (ex4-spring-neviim..) and is named ex4.sql </br>
+- i did the bonus.
+</p>
