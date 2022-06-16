@@ -32,7 +32,8 @@ public class BookService {
 
     /**
      * save a book to the database.
-     * @param book
+     *
+     * @param book - the book to save
      */
     public void saveBook(Book book) {
         bookRepository.save(book);
@@ -40,23 +41,17 @@ public class BookService {
 
     /**
      * get the 5 most discounted books.
-     * @return
+     *
+     * @return - the 5 most discounted books
      */
     public List<Book> get5DiscountBooks() {
         return bookRepository.findFirst5ByOrderByDiscountDesc();
 
     }
 
-//    /**
-//     * delete a book from the database by its id.
-//     * @param id - the id of the book to delete
-//     */
-//    public void deleteBook(long id) {
-//        bookRepository.deleteById(id);
-//    }
-
     /**
      * delete a book from the database by its name.
+     *
      * @param b - the book to delete
      */
     public void deleteBook(Book b) {
@@ -64,15 +59,8 @@ public class BookService {
     }
 
     /**
-     * update a book in the database.
-     * @param book
-     */
-    public void updateBook(Book book) {
-        bookRepository.save(book);
-    }
-
-    /**
      * get a book by its id.
+     *
      * @param id - the id of the book to get
      * @return the book
      */
@@ -83,6 +71,7 @@ public class BookService {
 
     /**
      * search for a book by its name.
+     *
      * @param query - the name of the book to search for
      * @return a list of matching results
      */
@@ -92,35 +81,34 @@ public class BookService {
 
     /**
      * get all books from the database.
-     * @return
+     *
+     * @return - all books
      */
-    public List<Book> getBooks() { return bookRepository.findAll(); }
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
+    }
 
     /**
      * get all payments from the database.
-     * @return
+     *
+     * @return - all payments
      */
-    public List<Payment> getPayments() { return paymentRepository.findAll(); }
+    public List<Payment> getPayments() {
+        return paymentRepository.findAll();
+    }
 
     /**
      * update the stock after a cart has been checked out.
+     *
      * @param cart - the cart
      */
     @Transactional
-    public void updateStock(ShoppingCart cart){
+    public void updateStock(ShoppingCart cart) {
         ArrayList<Book> outOfStock = new ArrayList<>();
-        for(Book b : cart.getBooks()) {
+        for (Book b : cart.getBooks()) {
             Book book = bookRepository.findById(b.getId()).orElseThrow(() -> new IllegalArgumentException("invalid id: " + b.getId()));
- //           try {
-                book.setQuantity(book.getQuantity() - cart.getBookQuantity(b.getId()));
-//            } catch (Exception e) {
-//                outOfStock.add(b);
-//            }
-            //bookRepository.save(book);
+            book.setQuantity(book.getQuantity() - cart.getBookQuantity(b.getId()));
         }
-//        if (outOfStock.size() > 0) {
-//            throw new IllegalArgumentException("The following books are out of stock: " + outOfStock);
-//        }
         paymentRepository.save(new Payment(cart.getTotalPriceAfterDiscount()));
     }
 }

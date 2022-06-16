@@ -12,21 +12,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     /**
-     * dercrease the quantity of a book in the store.
-     * @param id - the id of the book
-     * @param stock - the new stock
-     */
-    @Modifying
-    @Query(value = "UPDATE Book SET quantity = quantity - :stock WHERE id = :id")
-    void decrementStock(long id, int stock);
-
-    /**
-     * @return - the first five books with the biggest discount
-     */
-    @Query(value = "SELECT * FROM Book ORDER BY discount DESC LIMIT 5", nativeQuery = true)
-    List<Book> findFirstFiveBooksWithBiggestDiscount();
-
-    /**
      * @return - the first five books with the biggest discount
      */
     List<Book> findFirst5ByOrderByDiscountDesc();

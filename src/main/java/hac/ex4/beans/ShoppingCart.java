@@ -44,7 +44,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * getter for the books in the shopping cart
-     * @return
+     * @return - the books in the shopping cart
      */
     public ArrayList<Book> getBooks() {
         return books;
@@ -52,32 +52,27 @@ public class ShoppingCart implements Serializable {
 
     /**
      * setter for the books in the shopping cart
-     * @param books
+     * @param books - the books in the shopping cart
      */
     public void setBooks(ArrayList<Book> books) {
         this.books = books;
     }
 
 
+    /**
+     * getter for the quantities of the books in the shopping cart
+     * @return - the quantities of the books in the shopping cart
+     */
     public HashMap<Long, Integer> getBookQuantities() {
         return bookQuantities;
     }
 
     /**
      * setter for the book quantities in the shopping cart
-     * @param bookQuantities
+     * @param bookQuantities - the book quantities in the shopping cart
      */
     public void setBookQuantities(HashMap<Long, Integer> bookQuantities) {
         this.bookQuantities = bookQuantities;
-    }
-
-    /**
-     * Remove a book from the shopping cart
-     * @param book the book to remove
-     */
-    public void removeBook(Book book) {
-        getBooks().remove(book);
-        getBookQuantities().remove(book.getId());
     }
 
 
@@ -99,7 +94,7 @@ public class ShoppingCart implements Serializable {
     /**
      * getter for the quantity of a book in the shopping cart
      * @param id - the id of the book
-     * @return
+     * @return - the quantity of the book
      */
     public int getBookQuantity(long id) {
         return getBookQuantities().get(id);
@@ -107,7 +102,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * getter fot the total quantity of a book in the shopping cart
-     * @return
+     * @return - the total quantity of the books in the shopping cart
      */
     public int getTotalQuantity() {
         int total = 0;
@@ -119,7 +114,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * getter for the total price of all books in the shopping cart
-     * @return
+     * @return - the total price of all books in the shopping cart
      */
     public double getTotalPrice() {
         double total = 0;
@@ -131,7 +126,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * getter for the total discount of all books in the shopping cart
-     * @return
+     * @return - the total discount of all books in the shopping cart
      */
     public double getTotalDiscount() {
         double total = 0;
@@ -143,7 +138,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * getter for the total price of all books in the shopping cart after discount
-     * @return
+     * @return - the total price of all books in the shopping cart after discount
      */
     public double getTotalPriceAfterDiscount() {
         return getTotalPrice() - getTotalDiscount();
@@ -151,7 +146,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * setter for the shopping cart
-     * @param shoppingCart
+     * @param shoppingCart - the shopping cart
      */
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.setBooks(shoppingCart.getBooks());
@@ -166,18 +161,19 @@ public class ShoppingCart implements Serializable {
         getBookQuantities().clear();
     }
 
-    public boolean isEmpty() {
-        return getBooks().isEmpty();
-    }
-
     /**
      * returns the number of books in the shopping cart
-     * @return
+     * @return - the number of books in the shopping cart
      */
     public int getSize() {
         return getBooks().size();
     }
 
+    /**
+     * getter for the book in the shopping cart by index
+     * @param index - the index of the book
+     * @return - the book in the shopping cart by index
+     */
     public Book getBook(int index) {
         return getBooks().get(index);
     }
@@ -185,7 +181,7 @@ public class ShoppingCart implements Serializable {
 
     /**
      * toString method for the shopping cart
-     * @return
+     * @return - the string representation of the shopping cart
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();

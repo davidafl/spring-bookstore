@@ -4,31 +4,47 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
-
+/**
+ * the admin controller.
+ */
 @Entity
 public class Book implements Serializable {
 
+    /**
+     * the id of the book.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    /**
+     * the name of the book.
+     */
     @NotEmpty(message="Please enter an image URL")
-    private String image = "images/default-image.jpg";
+    private String image = "https://islandpress.org/sites/default/files/default_book_cover_2015.jpg";
 
-
+    /**
+     * the title of the book.
+     */
     @NotEmpty(message = "Name is mandatory")
     private String bookName;
 
-    //@NotEmpty(message = "Quantity is mandatory")
+    /**
+     * the quantity of the book.
+     */
     @PositiveOrZero(message = "Quantity must be positive or zero")
     @NotNull(message = "Quantity is mandatory")
     private Integer quantity = 1;
 
-    //@Column(nullable = false)
+    /**
+     * the price of the book.
+     */
     @Positive(message = "Price must be positive")
     private double price = 1;
 
-    //@Column(nullable = false)
+    /**
+     * the discount of the book.
+     */
     @PositiveOrZero(message = "Discount must be positive or zero")
     private double discount = 0;
 
@@ -86,9 +102,6 @@ public class Book implements Serializable {
      * @param quantity - the quantity of the book
      */
     public void setQuantity(Integer quantity) {
-        if (quantity < 0) {
-            throw new IllegalArgumentException("The book " + bookName + " is out of stock!");
-        }
         this.quantity = quantity;
     }
 

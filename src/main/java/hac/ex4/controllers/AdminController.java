@@ -29,8 +29,8 @@ public class AdminController {
 
     /**
      * Admin Home page.
-     * @param model
-     * @param principal
+     * @param model - the model
+     * @param principal - the user
      * @return the admin page
      */
     @GetMapping("/admin")
@@ -74,7 +74,8 @@ public class AdminController {
 
     /**
      * get method for the add-book page.
-     * @param model
+     * @param model - the model
+     * @param principal - the user
      * @return the add-book page
      */
     @GetMapping("/admin/addbook")
@@ -91,6 +92,7 @@ public class AdminController {
      * edit a book in the database.
      * @param id - the id of the book to edit
      * @param model - the model
+     * @param principal - the user
      * @return - the update-book page
      */
     @PostMapping("/admin/edit")
@@ -116,9 +118,10 @@ public class AdminController {
 
     /**
      * update a book in the database.
-     * @param book
-     * @param result
-     * @param model
+     * @param book - the book to update
+     * @param result - the result of the validation
+     * @param model - the model
+     * @param principal - the user
      * @return  the update-book if there are errors, the admin page if there are no errors
      */
     @PostMapping("/admin/update")

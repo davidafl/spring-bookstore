@@ -51,6 +51,7 @@ public class StoreController {
     /**
      * shows all books at the store.
      * @param model - the model
+     * @param principal - the principal
      * @return - the all-books page
      */
     @GetMapping("allbooks")
@@ -92,7 +93,7 @@ public class StoreController {
 
     /**
      * get method for the add-to-cart page.
-     * @return
+     * @return - the add-to-cart page
      */
     @GetMapping("/addtocart")
     public String addToCartForm() {
@@ -136,8 +137,8 @@ public class StoreController {
     /**
      * checkout page.
      * if no books in the cart, redirect to the cart page.
-     * @param model
-     * @return
+     * @param model - the model
+     * @return - the checkout page
      */
     @GetMapping("/cart/checkout")
     public String checkout(Model model){
@@ -153,9 +154,9 @@ public class StoreController {
      * user have to login to pay.
      * if the payment is successful, redirect to the main page.
      * else redirect to the cart page.
-     * @param model
-     * @param principal
-     * @return
+     * @param model - the model
+     * @param principal - the principal
+     * @return - the main page
      */
     @PostMapping("/cart/pay")
     public String pay(Model model, Principal principal){
@@ -212,7 +213,12 @@ public class StoreController {
         return "redirect:/";
     }
 
-
+    /**
+     * get method for the error page.
+     * @param model - the model
+     * @param principal - the principal
+     * @return - the error page
+     */
     @GetMapping("/error")
     public String error(Model model, Principal principal){
         if (principal != null) {

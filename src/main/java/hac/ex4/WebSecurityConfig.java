@@ -9,8 +9,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-// Spring Configuration annotation indicates that the class has @Bean definition methods.
-// So Spring container can process the class and generate Spring Beans to be used in the application.
+/**
+ * Spring Configuration annotation indicates that the class has @Bean definition methods.
+ * So Spring container can process the class and generate Spring Beans to be used in the application.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
