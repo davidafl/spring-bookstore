@@ -12,6 +12,7 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty(message="Please enter an image URL")
     private String image = "images/default-image.jpg";
 
 
@@ -20,7 +21,8 @@ public class Book implements Serializable {
 
     //@NotEmpty(message = "Quantity is mandatory")
     @PositiveOrZero(message = "Quantity must be positive or zero")
-    private int quantity = 1;
+    @NotNull(message = "Quantity is mandatory")
+    private Integer quantity = 1;
 
     //@Column(nullable = false)
     @Positive(message = "Price must be positive")
@@ -77,13 +79,13 @@ public class Book implements Serializable {
      * Getter for the quantity of the book.
      * @return - the quantity of the book
      */
-    public int getQuantity() { return quantity; }
+    public Integer getQuantity() { return quantity; }
 
     /**
      * Setter for the quantity of the book.
      * @param quantity - the quantity of the book
      */
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         if (quantity < 0) {
             throw new IllegalArgumentException("The book " + bookName + " is out of stock!");
         }

@@ -29,7 +29,9 @@
 
     <!-- Book list -->
     <div th:switch="${books.size()}" class="col">
-        <h2 th:case="0">No books yet!</h2>
+        <div class="alert alert-warning col-md-12 text-center mt-2" th:case="0">
+            <h4>No books yet</h4>
+        </div>
         <div th:case="*">
             <h2 class="my-5">All Books</h2>
             <div class="row">

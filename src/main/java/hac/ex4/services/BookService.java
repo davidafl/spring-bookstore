@@ -30,14 +30,6 @@ public class BookService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-
-    @Transactional
-    public void addUsers(ArrayList<Book> users) {
-        for (Book user : users) {
-            bookRepository.save(user);
-        }
-    }
-
     /**
      * save a book to the database.
      * @param book
@@ -51,18 +43,17 @@ public class BookService {
      * @return
      */
     public List<Book> get5DiscountBooks() {
-        //return bookRepository.findFirstFiveBooksWithBiggestDiscount();
         return bookRepository.findFirst5ByOrderByDiscountDesc();
 
     }
 
-    /**
-     * delete a book from the database by its id.
-     * @param id - the id of the book to delete
-     */
-    public void deleteBook(long id) {
-        bookRepository.deleteById(id);
-    }
+//    /**
+//     * delete a book from the database by its id.
+//     * @param id - the id of the book to delete
+//     */
+//    public void deleteBook(long id) {
+//        bookRepository.deleteById(id);
+//    }
 
     /**
      * delete a book from the database by its name.
@@ -120,16 +111,16 @@ public class BookService {
         ArrayList<Book> outOfStock = new ArrayList<>();
         for(Book b : cart.getBooks()) {
             Book book = bookRepository.findById(b.getId()).orElseThrow(() -> new IllegalArgumentException("invalid id: " + b.getId()));
-            try {
+ //           try {
                 book.setQuantity(book.getQuantity() - cart.getBookQuantity(b.getId()));
-            } catch (Exception e) {
-                outOfStock.add(b);
-            }
-            bookRepository.save(book);
+//            } catch (Exception e) {
+//                outOfStock.add(b);
+//            }
+            //bookRepository.save(book);
         }
-        if (outOfStock.size() > 0) {
-            throw new IllegalArgumentException("The following books are out of stock: " + outOfStock);
-        }
+//        if (outOfStock.size() > 0) {
+//            throw new IllegalArgumentException("The following books are out of stock: " + outOfStock);
+//        }
         paymentRepository.save(new Payment(cart.getTotalPriceAfterDiscount()));
     }
 }

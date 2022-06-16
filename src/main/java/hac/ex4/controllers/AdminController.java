@@ -106,6 +106,15 @@ public class AdminController {
     }
 
     /**
+     * get method for the update-book page.
+     * @return - the update-book page
+     */
+    @GetMapping("/admin/edit")
+    public String editBookForm() {
+        return "redirect:/admin";
+    }
+
+    /**
      * update a book in the database.
      * @param book
      * @param result
@@ -130,6 +139,15 @@ public class AdminController {
     }
 
     /**
+     * get method for the update-book page.
+     * @return - the update-book page
+     */
+    @GetMapping("/admin/update")
+    public String updateBookForm() {
+        return "redirect:/admin";
+    }
+
+    /**
      * delete a book from the database.
      * @param id - the id of the book to delete
      * @param model - the model
@@ -143,6 +161,15 @@ public class AdminController {
     }
 
     /**
+     * get method for the delete-book page.
+     * @return - the delete-book page
+     */
+    @GetMapping("/admin/delete")
+    public String deleteBookForm() {
+        return "redirect:/admin";
+    }
+
+    /**
      * shows all payments made in the database.
      * @param model - the model
      * @param principal - the principal
@@ -150,9 +177,11 @@ public class AdminController {
      */
     @GetMapping("/admin/payments")
     public String payments(Model model, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        }
         model.addAttribute("payments", bookService.getPayments());
         model.addAttribute("cart", cart);
-        model.addAttribute("username", principal.getName());
         return "payments";
     }
 }

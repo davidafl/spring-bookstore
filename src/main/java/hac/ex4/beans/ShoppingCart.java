@@ -14,7 +14,14 @@ import java.util.HashMap;
  */
 @Component
 public class ShoppingCart implements Serializable {
+    /**
+     * The books.
+     */
     private ArrayList<Book> books = new ArrayList<>();
+
+    /**
+     * The quantities of the books.
+     */
     private HashMap<Long,Integer> bookQuantities = new HashMap<>();
 
     /**
@@ -88,13 +95,6 @@ public class ShoppingCart implements Serializable {
         }
     }
 
-    public void updateBook(Book book, int quantity) {
-        getBookQuantities().put(book.getId(), quantity);
-    }
-
-    public void updateBook(long id, int quantity) {
-        getBookQuantities().put(id, quantity);
-    }
 
     /**
      * getter for the quantity of a book in the shopping cart
@@ -149,6 +149,10 @@ public class ShoppingCart implements Serializable {
         return getTotalPrice() - getTotalDiscount();
     }
 
+    /**
+     * setter for the shopping cart
+     * @param shoppingCart
+     */
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.setBooks(shoppingCart.getBooks());
         this.setBookQuantities(shoppingCart.getBookQuantities());

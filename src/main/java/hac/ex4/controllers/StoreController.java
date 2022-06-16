@@ -5,6 +5,7 @@ import hac.ex4.repo.Book;
 import hac.ex4.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,6 +87,15 @@ public class StoreController {
             model.addAttribute("message", "Sorry we could not perform your request!");
             return "index";
         }
+        return "redirect:/";
+    }
+
+    /**
+     * get method for the add-to-cart page.
+     * @return
+     */
+    @GetMapping("/addtocart")
+    public String addToCartForm() {
         return "redirect:/";
     }
 
@@ -200,5 +210,15 @@ public class StoreController {
     @GetMapping("/search")
     public String searchGet(Model model){
         return "redirect:/";
+    }
+
+
+    @GetMapping("/error")
+    public String error(Model model, Principal principal){
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        }
+        model.addAttribute("cart", cart);
+        return "error";
     }
 }
